@@ -2,74 +2,87 @@
 
 核对日期：2026-11-27。
 
-扫描范围：
+## 扫描范围和统计口径
 
-- `D:\distills\distilled_skills`
-- `C:\Users\leo\.codex\skills`
-- `C:\Users\leo\.agents\skills`
+本次检查了四个活动根：
 
-扫描到 31 个 `SKILL.md`（包含 `.system`、视频技能示例和两个本地技能目录）。以下结论只描述触发路由和职责边界，不代表所有技能正文都需要同时加载。
+- `D:\distills\distilled_skills`：规范源仓库；
+- `C:\Users\leo\.codex\skills`：Codex 活动安装根；
+- `C:\Users\leo\.agents\skills`：Agent 活动安装根；
+- `C:\Users\leo\.claude\skills`：Claude 活动安装根，包含指向 `.agents\skills` 的 Junction。
 
-## 重复副本
+清理前四个活动根共记录 36 个活动入口；清理后保留 22 个物理活动入口，并通过 `.claude\skills` 的 6 个 Junction 继续暴露 `.agents\skills` 中的统一副本。对 `C:\Users\leo` 做递归扫描得到 772 个 `SKILL.md`；其中包含插件缓存、VS Code 扩展、第三方工具包、旧备份和临时目录。它们不是同一层的活动安装，不纳入删除清单，也不因同名就判定为当前冲突。
 
-下面三个技能在仓库与 `C:\Users\leo\.codex\skills` 中各有一份内容完全相同的副本：
+统计时区分三类对象：规范源、活动安装副本、缓存/备份副本。规范源只在仓库维护；活动副本需要同步；缓存和备份只在确实确认归属后处理。
 
-| 规范源 | 安装副本 | 处理决定 |
-| --- | --- | --- |
-| `interface-design-process/SKILL.md` | `C:\Users\leo\.codex\skills\interface-design-process\SKILL.md` | 仓库作为唯一编辑源；用 `install_skill.py --dest` 同步 |
-| `web-interaction-and-motion/SKILL.md` | `C:\Users\leo\.codex\skills\web-interaction-and-motion\SKILL.md` | 同上 |
-| `immersive-web-storytelling/SKILL.md` | `C:\Users\leo\.codex\skills\immersive-web-storytelling\SKILL.md` | 同上 |
+## 已处理的合并
 
-同名目录不是三个不同技能。两处都保留会造成维护漂移，但不应把安装副本再当成第二个源修改。
+以下四个入口承担同一类网页/UI 体验设计问题，已合并为 `web-experience-design`：
 
-## 已确认的触发重叠
+| 原入口 | 合并后的职责 |
+| --- | --- |
+| `interface-design-process` | 任务结构、信息架构、视觉规则和真实内容迭代 |
+| `web-interaction-and-motion` | 触发器、输入映射、状态、时间线、动效和动态素材 |
+| `immersive-web-storytelling` | 空间层次、遮挡、场景接续和跨场景主体一致性 |
+| `oil-ui` | 视觉方向探索、多方案比较、真实截图评审、素材整理和滚动叙事工具链 |
 
-### UI、网页和视觉体验
+统一入口使用“当前核心问题”分流：先解决任务和内容，再按需读取视觉、动效、素材、滚动、空间或评审参考。原 Oil UI 的脚本和资源已迁入统一 skill 的 `references/`、`scripts/` 和 `assets/`，并保留其 `LICENSE`；不再作为第二个通用入口。
 
-| 技能 | 原重叠点 | 处理后的路由 |
-| --- | --- | --- |
-| `oil-ui` | 覆盖网站、App、后台、组件设计和界面优化 | 负责探索视觉方向、多风格对比页、截图驱动的设计评审；改法已明确的日常小改动不触发 |
-| `interface-design-process` | 同时覆盖新界面和已有界面视觉迭代 | 负责任务、信息架构、视觉规则和真实内容迭代；不负责独立动效工程或沉浸式空间叙事 |
-| `web-interaction-and-motion` | 同时出现网页、动效、素材和工具选择 | 只有当输入响应、状态、时间线或动态素材是核心问题时触发 |
-| `immersive-web-storytelling` | 同时出现网页、动效、素材、滚动和三维 | 只有当空间层次、场景接续、主体一致性或沉浸式叙事是核心问题时触发 |
+仓库和活动安装根中的下列目录应移入回滚目录或删除：
 
-选择顺序：视觉方向和多方案探索先看 `oil-ui`；页面任务和信息层级先看 `interface-design-process`；独立交互行为先看 `web-interaction-and-motion`；空间叙事先看 `immersive-web-storytelling`。
+- 仓库：`interface-design-process`、`web-interaction-and-motion`、`immersive-web-storytelling`；
+- `.codex\skills`：上述三个目录、`oil-ui`；
+- `.claude\skills`：`oil-ui`；
+- 三个活动根同步新增：`web-experience-design`。
 
-### 演示文稿与导出文件
+## 已处理的 KiCad 清理
 
-`presenton` 和 `slide-maker` 都会被 PowerPoint、deck、presentation、PDF 或 PNG 请求触发。处理规则：
+用户明确不再需要 KiCad，因此整体移出活动安装根：
 
-- 用户明确要求使用 Presenton、Presenton API、设计搜索或其导出流程时，使用 `presenton`。
-- 普通演示文稿的内容组织、视觉设计、重做和评审使用 `slide-maker`。
-- 同一任务需要两者时，先用 `slide-maker` 确定内容与设计，再在明确要求 Presenton 导出时调用 `presenton`。
+- `kicad-library`
+- `kicad-manufacture`
+- `kicad-pcb`
+- `kicad-review`
+- `kicad-schematic`
+- `konnect`
+- `pcb-revision-release`
 
-### KiCad、PCB 与 EDA
+`easyeda-api` 保留。它只针对 EasyEDA/嘉立创EDA 客户端、API、扩展和项目操作；不会因通用的 PCB、原理图或 EDA 词汇自动触发 KiCad 路由。
 
-这组不是“谁覆盖谁”，而是需要分层：
+## 保留但收紧边界的相邻入口
 
-- `konnect` 是所有 KiCad 项目的底层完整性和写入通道规则；涉及 KiCad 时始终优先读取。
-- `kicad-schematic`、`kicad-pcb`、`kicad-library`、`kicad-review`、`kicad-manufacture` 按具体操作选择，并通过 Konnect MCP 执行。
-- `pcb-revision-release` 负责产品级需求、选型、整板或改版范围；涉及 KiCad 的具体修改、检查和导出仍交给 `konnect` 与对应 `kicad-*` 技能。
-- `easyeda-api` 只用于 EasyEDA/嘉立创EDA 客户端、API、扩展和项目操作；不要因出现通用词 `PCB`、`schematic` 或 `EDA` 自动触发。
+### `presenton` 与 `slide-maker`
 
-### AST 搜索
+两者都会遇到演示文稿、PPTX、PDF 或 PNG，但用途不同：明确要求 Presenton、Presenton API、设计搜索或 HTML 导出时使用 `presenton`；普通演示文稿的内容组织、视觉设计、重做和评审使用 `slide-maker`。同一任务需要两者时，先由 `slide-maker` 确定内容和设计，再按用户要求交给 Presenton 导出。
 
-- `ast-grep-outline` 先输出低成本结构地图，用于探索和缩小阅读范围。
-- `ast-grep` 用于需要编写结构规则、复杂匹配或按 AST 条件搜索的任务。
-- “先 outline，再复杂 ast-grep”是顺序关系，不是同时加载要求。
+### `rigs` 与 `openrig-skills`
 
-### OpenRig
+用户在自己的 Codex/Claude 会话中安装、启动、更新、加入或重新连接 OpenRig 时使用 `rigs`；当前已经运行在 OpenRig 内，需要交接、恢复、唤醒、跨主机连接或队列处理时使用 `openrig-skills`。`.claude\skills` 中的旧物理副本改为指向 `.agents\skills` 的统一副本，旧内容先备份。
 
-- 用户在自己的 Codex/Claude 会话中安装、启动、更新、加入或重新连接 OpenRig：使用 `rigs`。
-- 当前已经运行在 OpenRig 内，需要交接、恢复、唤醒、跨主机连接或队列处理：使用 `openrig-skills`。
+### `ast-grep-outline` 与 `ast-grep`
 
-## 没有发现硬冲突的技能
+这是顺序关系，不是同义重复：先用 `ast-grep-outline` 输出低成本结构地图，再在确实需要复杂规则、条件匹配或重写时使用 `ast-grep`。
 
-`create-statusline`、`imagegen`、`openai-docs`、`skill-creator`、`skill-installer`、`python-venv-requests`、`refocusing`、`karpathy-guidelines` 是基础能力、工具专用或上下文维护技能；本轮没有发现需要改写触发描述的直接冲突。
+### `refocusing` 与 OpenRig 路由
 
-## 维护规则
+`refocusing` 只在长任务、上下文压缩或跨边界后需要重新锚定产品结果时使用；它不是 OpenRig 安装、启动或普通项目探索入口。
 
-1. 新技能的 `description` 只写用途、触发条件和必要边界，不把相邻技能的全部能力复制进去。
-2. 任务跨两个技能时，选择一个主技能；另一个只在主技能明确需要时加载。
-3. 修改仓库源后重新运行两个验证器，再用 `install_skill.py --dest "$env:USERPROFILE\.codex\skills"` 同步安装副本。
-4. 同步后比较 SHA-256；发现安装副本与规范源不同，先判断是否是未安装的新版本，再决定是否覆盖。
+## 备份和回滚
+
+被移出活动根的目录先移动到：
+
+```text
+C:\Users\leo\.claude\skills-backup\removed-20261127\
+```
+
+备份包括原始路径、移动时间和清单。仓库旧目录按 Git 删除，提交前可从 Git 恢复；用户目录副本不直接覆盖，先保留备份后再同步统一 skill。
+
+## 验证要求
+
+1. 运行 `skill-creator/scripts/quick_validate.py` 检查 `web-experience-design` 的 frontmatter、命名和未完成脚手架。
+2. 运行 `video-to-skill/scripts/validate_skill.py` 检查来源型资源和目录结构。
+3. 检查 `SKILL.md` 中每个参考链接都能解析，且没有指向已删除入口的路由文本。
+4. 对规范源和三个活动安装副本比较相对文件清单及 SHA-256。
+5. 运行 `git diff --check`，再检查活动根中不再出现旧网页入口和 KiCad 入口。
+
+结构验证只证明文件和路由一致，不证明真实项目视觉、交互、加载或独立评审已经完成；使用统一 skill 时仍要按项目实际环境取得对应证据。

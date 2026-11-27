@@ -1,106 +1,93 @@
-# UI 与网页设计蒸馏技能
+# 网页体验设计蒸馏技能
 
-这个仓库从 `01_UI_and_Web_Design` 相关视频中提炼作者解决问题的过程、判断依据、协作方式和制作技巧，形成 3 个可迁移到不同项目的技能。每个技能包含 `SKILL.md` 和来源证据，方法带有视频时间戳引用。
+这个仓库是 `web-experience-design` 的规范源（canonical source）。它把原来的界面设计、网页交互与动效、沉浸式网页叙事以及 Oil UI 的视觉探索流程合并为一个入口，覆盖任务结构、真实内容、视觉规则、交互状态、动态素材、空间关系和截图驱动评审。
 
-仓库是这 3 个技能的规范源（canonical source）。`C:\Users\leo\.codex\skills` 中的同名目录是安装副本，不应单独编辑；修改后从本仓库重新安装，避免两个版本同时被加载。
+仓库中的 `web-experience-design/` 是唯一编辑源；`C:\Users\leo\.codex\skills`、`C:\Users\leo\.agents\skills` 和 `C:\Users\leo\.claude\skills` 中的同名目录是同步安装副本。不要在安装目录直接改正文，修改后从本仓库重新同步。
 
-使用时先代入当前项目的目标、对象、素材和工程环境，再选择相关方法。视频中的看板、壁画、人物、工具与参数保留为来源案例，实际题材和配置由当前需求决定。迁移方法尚未在所有列举场景中执行验证。
+## 统一入口
 
-## 技能目录
+### `web-experience-design`
 
-### `interface-design-process`
+用于网站、App、工具界面和沉浸式网页体验的整体设计判断：
 
-组织新界面设计与已有界面的迭代：先明确任务和信息结构，再拆参考、建立稳定规则与风格变量，用真实内容发现问题，通过可定位的反馈、单项修改和回归检查持续完善。可用于网站、App、工具界面和交互页面。
+- 先写用户任务、真实内容、主角、主动作和信息结构；
+- 把参考拆成稳定规则与主题变量；
+- 用交互契约描述触发器、反应对象、变化机制、时间关系和恢复状态；
+- 按用途组织素材，控制层次、遮挡、接续和跨场景主体一致性；
+- 依据控制精度选择 CSS、JavaScript、Motion、GSAP、Canvas、Three.js、逐帧或视频；
+- 用低成本真实内容试作，逐轮修改并保留回滚点；
+- 在真实视口检查内容、交互、加载和未验证项。
 
-主要来源：V02、V19；V06、V07、V08、V16、V17 作为展示参考。
+原 Oil UI 的方向探索、风格对比页、真实截图评审、素材整理和滚动叙事资源已内置到 `web-experience-design/references/` 与 `web-experience-design/scripts/`，不再作为单独入口。
 
-### `web-interaction-and-motion`
+## 如何使用
 
-把交互想法拆成输入、反应对象、变化机制、时间关系和结束状态，再按控制需求与工程环境选择实现方式。素材准备、逐帧转换、状态联动和时间同步都是按需分支；工具名与图集参数仅作为来源示例。
+先说明当前目标、真实内容、既有成果、设备和技术约束，再按本轮范围进入统一 skill：
 
-主要来源：V09、V11、V14；V08、V16、V17 作为展示参考。
+- 已明确的小改动直接改指定元素；
+- 新界面或整体改版先做任务、主视口灰度和一个推荐方向；
+- 用户明确要求多方向时读取 `references/task-explore.md`；
+- 需要视觉语言、素材、动效、滚动叙事或独立评审时只读取对应参考；
+- 只读评审读取 `references/task-review.md`，不自动修改代码。
 
-### `immersive-web-storytelling`
+来源证据、时间戳和方法边界见 [`web-experience-design/references/source-evidence.md`](web-experience-design/references/source-evidence.md)。完整活动根冲突、重复副本和删除决定见 [`references/conflict-audit.md`](references/conflict-audit.md)。
 
-把视觉体验目标转成制作方案：按用途拆分和筛选素材，通过试作诊断空间问题，安排层次、遮挡和接续，保持关键主体一致，分开控制外观与运动，先低成本验证再提高质量。可迁移到产品展示、品牌叙事、作品展示或交互故事，题材由项目决定。
-
-主要来源：V13；V10、V12 作为展示参考。
-
-## 如何迁移到当前项目
-
-先说明当前目标和已有成果，再使用对应技能推进。例如：
-
-- “用 `interface-design-process` 迭代我的预约 App，保留已有导航和主色，先检查任务路径与信息层级。”
-- “用 `web-interaction-and-motion` 设计产品卡片展开与联动，沿用现有工程，先给出状态和时间关系。”
-- “用 `immersive-web-storytelling` 规划一页产品发布体验，围绕产品本身拆素材、安排层次和转场，先做一段可检查的试作。”
-
-这些是迁移用法示例。技能正文提供作者做法提炼出的判断与流程，`references/source-evidence.md` 保留原始案例、具体参数和不确定项。
-
-## 技能路由与冲突处理
-
-先按当前任务的主要难点选择一个入口；需要协作时由入口技能把约束传给相邻技能，不要因为出现“界面”“动效”或“网页”这些词就同时加载全部技能。
-
-| 主要问题 | 首选技能 | 不在首选技能中承担的内容 |
-| --- | --- | --- |
-| 任务、信息架构、视觉规则、真实内容迭代 | `interface-design-process` | 独立动效实现、逐帧素材工程、沉浸式空间叙事 |
-| 触发器、输入响应、状态、时间线、动态素材 | `web-interaction-and-motion` | 完整页面信息架构和视觉方向 |
-| 空间层次、遮挡、场景接续、跨场景主体一致性 | `immersive-web-storytelling` | 普通页面结构和单个组件动效 |
-
-完整的本机 skill 冲突盘点、重复副本、外部安装目录与处理决定见[冲突审计](references/conflict-audit.md)。
-
-## 相关项目与参考资源
-
-新增的 [`references/resource-map.md`](references/resource-map.md) 按用途整理了可选资源：
-
-- GitHub 制作项目：界面组件、状态与时间线、平滑滚动、视频与逐帧素材、二维与三维空间化视觉。
-- 设计规范与组件系统：Apple Human Interface Guidelines、Material 3、WCAG 2.2、Carbon、Fluent 2、Polaris 和 Atlassian Design System。
-- 审美与案例参考：Awwwards、Mobbin、Land-book、Godly、SiteInspire、Behance 和 Dribbble。
-
-资源地图标注了每个资源解决的问题、适用边界和对应技能。规范用于建立规则与检查，组件系统用于借鉴行为和状态，案例网站用于提取审美与交互线索；具体工具仍按当前项目的控制精度、素材、性能和输出要求选择。
-
-## 目录结构
+## 资源结构
 
 ```text
-interface-design-process/
+web-experience-design/
+  LICENSE
   SKILL.md
-  references/source-evidence.md
-web-interaction-and-motion/
-  SKILL.md
-  references/source-evidence.md
-immersive-web-storytelling/
-  SKILL.md
-  references/source-evidence.md
-references/
-  resource-map.md
+  references/
+    source-evidence.md
+    design-direction.md
+    visual-language.md
+    media.md
+    motion.md
+    scroll-narrative.md
+    task-explore.md
+    task-review.md
+    visual-review.md
+    ux-review.md
+    ...
+  scripts/
+    build_explorer.py
+    shoot.mjs
+    curate-media.mjs
+    prep-image.mjs
+    ...
+  assets/
+    style-explorer.html
+    ...
 ```
 
-## 安装
+资源按需读取。过程截图、对比页和评审记录放在项目任务目录，不写进 skill 安装目录。
 
-如果已经安装 `video-to-skill`，使用它提供的安装脚本从本仓库逐个安装。脚本会先验证，再把旧的同名安装副本移到备份目录：
+## 安装与同步
+
+仓库作为规范源，安装目录作为副本。同步前先把被替换的活动目录移动到 `C:\Users\leo\.claude\skills-backup\removed-20261127`，以便回滚。统一 skill 需要同步到三个活动根：
 
 ```powershell
-python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" .\interface-design-process --dest "$env:USERPROFILE\.codex\skills"
-python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" .\web-interaction-and-motion --dest "$env:USERPROFILE\.codex\skills"
-python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" .\immersive-web-storytelling --dest "$env:USERPROFILE\.codex\skills"
+$source = 'D:\distills\distilled_skills\web-experience-design'
+python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" $source --dest "$env:USERPROFILE\.codex\skills"
+python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" $source --dest "$env:USERPROFILE\.agents\skills"
+python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" $source --dest "$env:USERPROFILE\.claude\skills"
 ```
 
-不要同时维护仓库目录和安装目录中的两份手工修改。安装后可用下面的命令确认两边内容一致：
-
-```powershell
-Get-FileHash .\interface-design-process\SKILL.md, "$env:USERPROFILE\.codex\skills\interface-design-process\SKILL.md"
-Get-FileHash .\web-interaction-and-motion\SKILL.md, "$env:USERPROFILE\.codex\skills\web-interaction-and-motion\SKILL.md"
-Get-FileHash .\immersive-web-storytelling\SKILL.md, "$env:USERPROFILE\.codex\skills\immersive-web-storytelling\SKILL.md"
-```
+如果安装脚本不接受已经存在的目录，先完成备份和移除，再运行同样的命令。同步后比较 `SKILL.md` 及所有资源的 SHA-256；安装副本只应与规范源内容不同于路径。
 
 ## 验证
 
 ```powershell
-python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\interface-design-process
-python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\web-interaction-and-motion
-python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\immersive-web-storytelling
-python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\interface-design-process
-python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\web-interaction-and-motion
-python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\immersive-web-storytelling
+python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\web-experience-design
+python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\web-experience-design
+git diff --check
 ```
 
-`quick_validate.py` 是 skill-creator 提供的结构快速检查；`video-to-skill/scripts/validate_skill.py` 是本仓库来源抽取流程的增强检查。两者都不代表已完成实际项目验证。来源视频使用 `Whisper small` 转写，并结合关键帧、联系表、时间线和全分辨率画面核对；展示类视频仅用于视觉参考。通用化归纳与具体迁移建议在正文中说明，来源没有展示的实现仍需在使用时验证。
+结构验证不等于真实项目视觉验收。使用统一 skill 时仍需在目标视口运行、检查实际状态，并明确记录未验证部分。
+
+## 活动安装范围与清理边界
+
+本轮扫描了四个活动根：仓库、`.codex\skills`、`.agents\skills` 和 `.claude\skills`，清理前共记录 36 个活动入口；清理后保留 22 个物理活动入口，并通过 `.claude\skills` 的 6 个 Junction 继续暴露 `.agents\skills` 中的统一副本；递归扫描用户目录得到 772 个 `SKILL.md`，其中大量是插件缓存、VS Code 扩展、临时目录和旧备份，不把它们当作当前已加载 skill，也不直接删除。
+
+按用户要求，KiCad 相关 skill（`kicad-*`、`konnect`、`pcb-revision-release`）整体移出活动安装根；`easyeda-api` 保留，它只处理 EasyEDA/嘉立创EDA。`presenton` 与 `slide-maker` 仍按工具边界分工，`rigs` 与 `openrig-skills` 仍按“会话外安装/运行中恢复”分工，`ast-grep-outline` 与 `ast-grep` 仍按“先结构地图、后复杂规则”分层。
