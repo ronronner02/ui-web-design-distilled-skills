@@ -2,6 +2,8 @@
 
 这个仓库从 `01_UI_and_Web_Design` 相关视频中提炼作者解决问题的过程、判断依据、协作方式和制作技巧，形成 3 个可迁移到不同项目的技能。每个技能包含 `SKILL.md` 和来源证据，方法带有视频时间戳引用。
 
+仓库是这 3 个技能的规范源（canonical source）。`C:\Users\leo\.codex\skills` 中的同名目录是安装副本，不应单独编辑；修改后从本仓库重新安装，避免两个版本同时被加载。
+
 使用时先代入当前项目的目标、对象、素材和工程环境，再选择相关方法。视频中的看板、壁画、人物、工具与参数保留为来源案例，实际题材和配置由当前需求决定。迁移方法尚未在所有列举场景中执行验证。
 
 ## 技能目录
@@ -34,6 +36,18 @@
 
 这些是迁移用法示例。技能正文提供作者做法提炼出的判断与流程，`references/source-evidence.md` 保留原始案例、具体参数和不确定项。
 
+## 技能路由与冲突处理
+
+先按当前任务的主要难点选择一个入口；需要协作时由入口技能把约束传给相邻技能，不要因为出现“界面”“动效”或“网页”这些词就同时加载全部技能。
+
+| 主要问题 | 首选技能 | 不在首选技能中承担的内容 |
+| --- | --- | --- |
+| 任务、信息架构、视觉规则、真实内容迭代 | `interface-design-process` | 独立动效实现、逐帧素材工程、沉浸式空间叙事 |
+| 触发器、输入响应、状态、时间线、动态素材 | `web-interaction-and-motion` | 完整页面信息架构和视觉方向 |
+| 空间层次、遮挡、场景接续、跨场景主体一致性 | `immersive-web-storytelling` | 普通页面结构和单个组件动效 |
+
+完整的本机 skill 冲突盘点、重复副本、外部安装目录与处理决定见[冲突审计](references/conflict-audit.md)。
+
 ## 相关项目与参考资源
 
 新增的 [`references/resource-map.md`](references/resource-map.md) 按用途整理了可选资源：
@@ -62,7 +76,7 @@ references/
 
 ## 安装
 
-如果已经安装 `video-to-skill`，可以使用它提供的安装脚本逐个安装：
+如果已经安装 `video-to-skill`，使用它提供的安装脚本从本仓库逐个安装。脚本会先验证，再把旧的同名安装副本移到备份目录：
 
 ```powershell
 python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" .\interface-design-process --dest "$env:USERPROFILE\.codex\skills"
@@ -70,12 +84,23 @@ python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" 
 python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\install_skill.py" .\immersive-web-storytelling --dest "$env:USERPROFILE\.codex\skills"
 ```
 
+不要同时维护仓库目录和安装目录中的两份手工修改。安装后可用下面的命令确认两边内容一致：
+
+```powershell
+Get-FileHash .\interface-design-process\SKILL.md, "$env:USERPROFILE\.codex\skills\interface-design-process\SKILL.md"
+Get-FileHash .\web-interaction-and-motion\SKILL.md, "$env:USERPROFILE\.codex\skills\web-interaction-and-motion\SKILL.md"
+Get-FileHash .\immersive-web-storytelling\SKILL.md, "$env:USERPROFILE\.codex\skills\immersive-web-storytelling\SKILL.md"
+```
+
 ## 验证
 
 ```powershell
+python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\interface-design-process
+python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\web-interaction-and-motion
+python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" .\immersive-web-storytelling
 python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\interface-design-process
 python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\web-interaction-and-motion
 python "$env:USERPROFILE\.codex\skills\video-to-skill\scripts\validate_skill.py" .\immersive-web-storytelling
 ```
 
-结构验证检查技能格式、名称、引用和文件链接，不代表已完成实际项目验证。来源视频使用 `Whisper small` 转写，并结合关键帧、联系表、时间线和全分辨率画面核对；展示类视频仅用于视觉参考。通用化归纳与具体迁移建议在正文中说明，来源没有展示的实现仍需在使用时验证。
+`quick_validate.py` 是 skill-creator 提供的结构快速检查；`video-to-skill/scripts/validate_skill.py` 是本仓库来源抽取流程的增强检查。两者都不代表已完成实际项目验证。来源视频使用 `Whisper small` 转写，并结合关键帧、联系表、时间线和全分辨率画面核对；展示类视频仅用于视觉参考。通用化归纳与具体迁移建议在正文中说明，来源没有展示的实现仍需在使用时验证。
