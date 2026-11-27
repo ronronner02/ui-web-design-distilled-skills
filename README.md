@@ -34,6 +34,16 @@
 
 这些是迁移用法示例。技能正文提供作者做法提炼出的判断与流程，`references/source-evidence.md` 保留原始案例、具体参数和不确定项。
 
+## 相关项目与参考资源
+
+新增的 [`references/resource-map.md`](references/resource-map.md) 按用途整理了可选资源：
+
+- GitHub 制作项目：界面组件、状态与时间线、平滑滚动、视频与逐帧素材、二维与三维空间化视觉。
+- 设计规范与组件系统：Apple Human Interface Guidelines、Material 3、WCAG 2.2、Carbon、Fluent 2、Polaris 和 Atlassian Design System。
+- 审美与案例参考：Awwwards、Mobbin、Land-book、Godly、SiteInspire、Behance 和 Dribbble。
+
+资源地图标注了每个资源解决的问题、适用边界和对应技能。规范用于建立规则与检查，组件系统用于借鉴行为和状态，案例网站用于提取审美与交互线索；具体工具仍按当前项目的控制精度、素材、性能和输出要求选择。
+
 ## 目录结构
 
 ```text
@@ -46,6 +56,8 @@ web-interaction-and-motion/
 immersive-web-storytelling/
   SKILL.md
   references/source-evidence.md
+references/
+  resource-map.md
 ```
 
 ## 安装
